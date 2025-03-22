@@ -18,8 +18,8 @@ const FilterModal = ({ isOpen, onClose }) => {
     { label: "C", value: "c" },
   ];
 
-  const stateOptions = ["Nursery Teacher (NT)", "Secondary Teacher (ST)"];
-  const countryOptions = ["Teaching Assistant (TA)", "Admin Staff (AS)"];
+  const stateOptions = ["A", "B"];
+  const countryOptions = ["C)", "D)"];
 
   const handleReset = () => {
     setSelectedState("");

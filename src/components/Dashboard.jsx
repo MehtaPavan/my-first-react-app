@@ -5,7 +5,7 @@ import FilterModal from '../components/FilterModal'; // ✅ Import the modal com
 const FilterButton = ({ isModalOpen, setIsModalOpen }) => {
   return (
     <div className="flex justify-center items-center">
-      <button 
+      <button
         className="bg-white border border-orange-500 text-orange-500 py-2 px-6 rounded-md hover:bg-orange-50 transition duration-300 whitespace-nowrap"
         onClick={() => setIsModalOpen(true)}
       >
@@ -16,22 +16,29 @@ const FilterButton = ({ isModalOpen, setIsModalOpen }) => {
   );
 };
 
-const SupplierCard = ({ supplier }) => {
+const SupplierCard = ({ supplier, setIsModalOpen }) => {
   return (
     <div className="bg-white rounded-lg shadow-sm p-6 mb-4 border border-orange-300">
       <div className="flex flex-col md:flex-row">
         <div className="flex flex-col items-center mr-6 w-24">
-          <img 
-            src={supplier.logo || "/api/placeholder/80/80"} 
-            alt="Company Logo" 
-            className="w-16 h-16 mb-2" 
+          <img
+            src={supplier.logo || "/api/placeholder/80/80"}
+            alt="Company Logo"
+            className="w-16 h-16 mb-2"
           />
           
-          <button className="bg-blue-600 text-white text-sm py-1 px-4 rounded-md w-full">
+          <button
+            className="bg-blue-600 text-white text-sm py-1 px-4 rounded-md w-full"
+            onClick={() => {
+              console.log("View Button Clicked!"); // Debugging
+              setIsModalOpen(true);
+            }}
+          >
             View
           </button>
+
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1">
           <div>
             <div className="mb-2">
@@ -47,7 +54,7 @@ const SupplierCard = ({ supplier }) => {
               <span>{supplier.no}</span>
             </div>
           </div>
-          
+
           <div>
             <div className="mb-2">
               <span className="text-gray-700 font-medium">Country : </span>
@@ -62,7 +69,7 @@ const SupplierCard = ({ supplier }) => {
               <span>{supplier.city}</span>
             </div>
           </div>
-          
+
           <div>
             <div className="mb-2">
               <span className="text-gray-700 font-medium">Years of experience : </span>
@@ -78,59 +85,59 @@ const SupplierCard = ({ supplier }) => {
             </div>
           </div>
           <div className="col-span-10 text-left">
-    <p className="text-gray-700 text-md leading-relaxed">
-      <span className="font-bold">Supplier Details:</span>{" "}
-      Identify suppliers with the necessary capabilities to manufacture and finish components and/or assemblies for different SKUs of HVAC, ensuring compliance with quality standards, durability, and cost-competitiveness. Supplier capability may include a portion, or all processes listed. Please refer to the attached Supplier Capability document for details. Please respond by uploading your profile and contact information.
-    </p>
-</div>
-</div>
-        
-        <div className="mt-4 md:mt-0 md:ml-6 md:w-52 space-y-4">
-        <div className="text-center border border-gray-300 p-3 rounded-md">
-          <div className="text-center mb-0">
-            <p className="mb-2">User Ratings</p>
-            <div className="flex justify-center">
-              {[1, 2, 3, 4, 5].map((star, index) => (
-                <span key={index} className={`text-2xl ${index < supplier.rating ? 'text-yellow-400' : 'text-gray-300'}`}>★</span>
-              ))}
-            </div>
+            <p className="text-gray-700 text-md leading-relaxed">
+              <span className="font-bold">Supplier Details:</span>{supplier.details}
+              Identify suppliers with the necessary capabilities to manufacture and finish components and/or assemblies for different SKUs of HVAC, ensuring compliance with quality standards, durability, and cost-competitiveness. Supplier capability may include a portion, or all processes listed. Please refer to the attached Supplier Capability document for details. Please respond by uploading your profile and contact information.
+            </p>
           </div>
+        </div>
+
+        <div className="mt-4 md:mt-0 md:ml-6 md:w-52 space-y-4">
+          <div className="text-center border border-gray-300 p-3 rounded-md">
+            <div className="text-center mb-0">
+              <p className="mb-2">User Ratings</p>
+              <div className="flex justify-center">
+                {[1, 2, 3, 4, 5].map((star, index) => (
+                  <span key={index} className={`text-2xl ${index < supplier.rating ? 'text-yellow-400' : 'text-gray-300'}`}>★</span>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="text-center">
-          <div className="text-center border border-gray-300 p-3 rounded-md">
-            <p className="mb-2">Mesh Score</p>
-            <div className="flex items-center">
-              <div className="flex-none bg-gray-700 text-white w-6 h-6 flex items-center justify-center rounded-full text-xs mr-1">
-                1
-              </div>
-              <div className="flex-1 mx-1">
-                <div className="bg-gray-200 rounded-full h-4 relative">
-                  <div 
-                    className="bg-yellow-400 h-4 rounded-full" 
-                    style={{ width: `${supplier.meshScore * 10}%` }}
-                  ></div>
-                  <span className="absolute text-xs font-medium left-1 top-0 leading-4 text-white">
-                    {supplier.meshScore}/10
-                  </span>
+            <div className="text-center border border-gray-300 p-3 rounded-md">
+              <p className="mb-2">Mesh Score</p>
+              <div className="flex items-center">
+                <div className="flex-none bg-gray-700 text-white w-6 h-6 flex items-center justify-center rounded-full text-xs mr-1">
+                  1
                 </div>
-              </div>
-              <div className="flex-none bg-gray-200 text-gray-700 w-6 h-6 flex items-center justify-center rounded-full text-xs ml-1">
-                10
+                <div className="flex-1 mx-1">
+                  <div className="bg-gray-200 rounded-full h-4 relative">
+                    <div
+                      className="bg-yellow-400 h-4 rounded-full"
+                      style={{ width: `${supplier.meshScore * 10}%` }}
+                    ></div>
+                    <span className="absolute text-xs font-medium left-1 top-0 leading-4 text-white">
+                      {supplier.meshScore}/10
+                    </span>
+                  </div>
+                </div>
+                <div className="flex-none bg-gray-200 text-gray-700 w-6 h-6 flex items-center justify-center rounded-full text-xs ml-1">
+                  10
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      </div>
-</div>
+    </div>
   );
 };
 
 const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false); // ✅ Define modal state
-
+  
   const supplierData = [
     {
       id: 1,
@@ -144,7 +151,7 @@ const Dashboard = () => {
       experience: 'B45 8QR',
       employees: '123456789',
       certification: 'abc@gmail.com',
-      details: 'Identify suppliers with the necessary capabilities to manufacture and finish components and/or assemblies for different SKUs of HVAC, ensuring compliance with quality standards, durability, and cost-competitiveness. Supplier capability may include a portion, or all processes listed. Please refer to the attached Supplier Capability document for details. Please respond by uploading your profile and contact information.',
+      details: 'Issdentify suppliers with the necessary capabilities to manufacture and finish components and/or assemblies for different SKUs of HVAC, ensuring compliance with quality standards, durability, and cost-competitiveness. Supplier capability may include a portion, or all processes listed. Please refer to the attached Supplier Capability document for details. Please respond by uploading your profile and contact information.',
       rating: 4,
       meshScore: 6.5
     },
@@ -189,7 +196,7 @@ const Dashboard = () => {
           <img src="/api/placeholder/150/40" alt="Mesh Works Logo" className="h-8" />
         </div>
       </header>
-      
+
       <main className="container mx-auto py-6 px-4">
         <div className="mb-6">
           <div className="flex items-center mb-4">
@@ -200,15 +207,15 @@ const Dashboard = () => {
             </div>
             <h1 className="text-2xl font-bold text-gray-800">AI Supplier Search Agent</h1>
           </div>
-          
+
           <div className="flex flex-col md:flex-row gap-4 items-center">
             <div className="relative flex-grow">
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd"d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
                 </svg>
               </span>
-              
+
               <input
                 type="text"
                 placeholder="Search here..."
@@ -216,9 +223,9 @@ const Dashboard = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-            <button className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-6 rounded-md transition duration-300 mx-4">
-              Search
-            </button>
+              <button className="bg-orange-500 hover:bg-orange-600 text-white py-2 px-6 rounded-md transition duration-300 mx-4">
+                Search
+              </button>
             </div>
 
             <FilterButton isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
@@ -229,14 +236,12 @@ const Dashboard = () => {
         </div>
         
         <div className="supplier-list">
-          {supplierData.map(supplier => (
-            <SupplierCard key={supplier.id} supplier={supplier} />
+          {supplierData.map((supplier) => (
+            <SupplierCard key={supplier.id} supplier={supplier} setIsModalOpen={setIsModalOpen} />
           ))}
         </div>
       </main>
-
-      
-          </div>
+    </div>
   );
 };
 
